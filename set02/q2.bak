@@ -1,0 +1,220 @@
+;; The first three lines of this file were inserted by DrRacket. They record metadata
+;; about the language level of this file in a form that our tools can easily process.
+#reader(lib "htdp-beginner-reader.ss" "lang")((modname q2) (read-case-sensitive #t) (teachpacks ((lib "image.rkt" "teachpack" "2htdp") (lib "universe.rkt" "teachpack" "2htdp"))) (htdp-settings #(#t constructor repeating-decimal #f #t none #f ((lib "image.rkt" "teachpack" "2htdp") (lib "universe.rkt" "teachpack" "2htdp")) #f)))
+
+(require rackunit)
+(require "extras.rkt")
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;; DATA DEFINITIONS:
+
+;; a LegalInput is one of
+;; -- "d"
+;; -- "p"
+;; -- "s"
+;; -- "e"
+;; INTERPRETATION: self-evident
+
+;; TEMPLATE
+;; legalInput-fn: LegalInput -> ??
+#|
+   (define (legalInput-fn legal-input)
+    (cond
+      [(string=? legal-input "d") ...]
+      [(string=? legal-input "p") ...]
+      [(string=? legal-input "s") ...]
+      [(string=? legal-input "e") ...]))
+|#
+
+;; a State is one of
+;; -- "start-state"
+;; -- "error-state"
+;; -- "state-one"
+;; -- "state-two"
+;; -- "state-three"
+;; -- "state-four"
+;; -- "state-five"
+;; INTERPRETATION:
+
+;; TEMPLATE
+;; state-fn : State -> ??
+#|
+   (define (state-fn state)
+    (cond
+      [(string=? state "start-state") ...]
+      [(string=? state "error-state") ...]
+      [(string=? state "state-one") ...]
+      [(string=? state "state-two") ...]
+      [(string=? state "state-three") ...]
+      [(string=? state "state-four") ...]
+      [(string=? state "state-five") ...]))
+|#
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;; initial-state : Number -> State
+;; GIVEN: a number
+;; RETURNS: a representation of the initial stat of the finite state machine
+;; EXAMPLES:
+;; (initial-state 1) = "start-state"
+;; (initial-state -1) = "start-state"
+;; (initial-state 0) = "start-state"
+
+(define (initial-state num) "start-state")
+
+;; TESTS
+
+(begin-for-test
+  (check-equal? (initial-state 1) "start-state"
+                " start-state should be returned for the input 1")
+  (check-equal? (initial-state 0) "start-state"
+                " start-state should be returned for the input 0")
+  (check-equal? (initial-state -1) "start-state"
+                " start-state should be returned for the input -1")
+  (check-equal? (initial-state 1.0) "start-state"
+                " start-state should be returned for the input 1.0"))
+
+;; next-state : State LegalInput -> State
+;; GIVEN: a state of the machine and a machine input
+;; RETURNS: the state the machine should enter if it is in the given state
+;;          and sees the given input
+;; EXAMPLES:
+;; (next-state "start-state" "d") = "state-one"
+;; (next-state "start-state" "e") = "error-state"
+;; (next-state "state-one" "d") = "state-one"
+
+(define (next-state state legalInput)
+  (cond
+    [(string=? state "start-state")(start-state-next legalInput)]
+    [(string=? state "state-one")(state-one-next legalInput)]
+    [(string=? state "state-two")(state-two-next legalInput)]
+    [(string=? state "state-three")(state-three-next legalInput)]
+    [(string=? state "state-four")(state-four-next legalInput)]
+    [(string=? state "state-five")(state-five-next legalInput)]
+    [(string=? state "error-state")(error-state legalInput)]))
+
+;; TESTS
+(begin-for-test
+  (check-equal? (next-state "start-state" "d") "start-one"
+                "")
+  (check-equal? (next-state "start-state" "s") "start-two"
+                "")
+  (check-equal? (next-state "start-state" "p") "start-three"
+                "")
+  (check-equal? (next-state "start-state" "e") "error-state"
+                "")
+  (check-equal? (next-state "state-one" "d") "start-one"
+                "")
+  (check-equal? (next-state "state-one" "s") "error-state"
+                "")
+  (check-equal? (next-state "state-one" "p") "state-three"
+                "")
+  (check-equal? (next-state "state-one" "e") "state-five"
+                "")
+  (check-equal? (next-state "state-two" "d") "start-one"
+                "")
+  (check-equal? (next-state "state-two" "s") "error-state"
+                "")
+  (check-equal? (next-state "state-two" "p") "state-three"
+                "")
+  (check-equal? (next-state "state-two" "e") "error-state"
+                "")
+  (check-equal? (next-state "state-three" "d") "start-four"
+                "")
+  (check-equal? (next-state "state-three" "s") "error-state"
+                "")
+  (check-equal? (next-state "state-three" "p") "error-state"
+                "")
+  (check-equal? (next-state "state-three" "e") "error-state"
+                "")
+  (check-equal? (next-state "state-four" "d") "start-four"
+                "")
+  (check-equal? (next-state "state-four" "s") "error-state"
+                "")
+  (check-equal? (next-state "state-four" "p") "error-state"
+                "")
+  (check-equal? (next-state "state-four" "e") "state-five"
+                "")
+  (check-equal? (next-state "state-five" "d") "error-state"
+                "")
+  (check-equal? (next-state "state-five" "s") "error-state"
+                "")
+  (check-equal? (next-state "state-five" "p") "error-state"
+                "")
+  (check-equal? (next-state "state-five" "e") "error-state"
+                "")
+  (check-equal? (next-state "error-state" "d") "error-state"
+                "")
+  (check-equal? (next-state "error-state" "s") "error-state"
+                "")
+  (check-equal? (next-state "error-state" "p") "error-state"
+                "")
+  (check-equal? (next-state "error-state" "e") "error-state"
+                "")
+
+(define (accepting-state? state)
+  (cond
+    [(string=? state "state-one")true]
+    [(string=? state "state-four")true]
+    [(string=? state "state-five")true]
+    [else false]))
+
+;;
+
+(define (rejecting-state? state)
+  (if (string=? state "error-state") true false))
+
+
+(define (start-state-next legalInput)
+  (cond
+    [(string=? legalInput "d") "state-one"]
+    [(string=? legalInput "s") "state-two"]
+    [(string=? legalInput "p") "state-three"]
+    [(string=? legalInput "e") "error-state"]))
+
+(define (state-one-next legalInput)
+  (cond
+    [(string=? legalInput "d") "state-one"]
+    [(string=? legalInput "s") "error-state"]
+    [(string=? legalInput "p") "state-three"]
+    [(string=? legalInput "e") "state-five"]))
+
+(define (state-two-next legalInput)
+  (cond
+    [(string=? legalInput "d") "state-one"]
+    [(string=? legalInput "s") "error-state"]
+    [(string=? legalInput "p") "state-three"]
+    [(string=? legalInput "e") "error-state"]))
+
+(define (state-three-next legalInput)
+  (cond
+    [(string=? legalInput "d") "state-four"]
+    [(string=? legalInput "s") "error-state"]
+    [(string=? legalInput "p") "error-state"]
+    [(string=? legalInput "e") "error-state"]))
+
+(define (state-four-next legalInput)
+  (cond
+    [(string=? legalInput "d") "state-four"]
+    [(string=? legalInput "s") "error-state"]
+    [(string=? legalInput "p") "error-state"]
+    [(string=? legalInput "e") "state-five"]))
+
+(define (state-five-next legalInput)
+  (cond
+    [(string=? legalInput "d") "error-state"]
+    [(string=? legalInput "s") "error-state"]
+    [(string=? legalInput "p") "error-state"]
+    [(string=? legalInput "e") "error-state"]))
+
+(define (error-state legalInput)
+  (cond
+    [(string=? legalInput "d") "error-state"]
+    [(string=? legalInput "s") "error-state"]
+    [(string=? legalInput "p") "error-state"]
+    [(string=? legalInput "e") "error-state"]))
+
+
+
+

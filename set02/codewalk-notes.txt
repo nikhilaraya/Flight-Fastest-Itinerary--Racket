@@ -1,0 +1,27 @@
+TA-1 Name:- Rahul
+TA-2 Name:- Sankar
+
+
+Student1 CCIS ID:- nikhilaraya
+
+Question 1 :-
+
+Design Grade:-A
+TA Comments on Design:-
+>100% test coverage achieved.
+>It is better to send structure as argument and then use template of structure inside function  than decomposing it initially.
+
+Presentation Grade:-A
+TA Comments on Presentation:-
+>was able to explain properly.
+
+Question 2 :-
+
+Design Grade:-A
+TA Comments on Design:-
+>Definition of state structure is proper.
+>100% test coverage achieved.
+
+Presentation Grade:-A
+TA Comments on Presentation:-
+>Was able to understand the question and was able to answer it properly.

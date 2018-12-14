@@ -1,0 +1,34 @@
+--------------------
+q2 > Test #7
+Test #7
+FAILURE
+name:       check-equal?
+location:   q2-bb.rkt:224:4
+params:     '(#t #f)
+'(#t #t)
+actual:     '(#t #f)
+expected:   '(#t #t)
+expression: (check-equal? (let* ((c1 (doodad-color (world-doodad-star (initial-world 0)))) (c2 (doodad-color (world-doodad-square (initial-world 0)))) (w (world-after-key-event (world-after-mouse-event (world-after-mouse-event (world-after-mouse-event (world-after-mouse-event (world-after-mouse-event (initial-world 0) 125 120 "button-down") 440 360 "drag") 440 360 "button-up") 440 360 "button-down") 150 200 "drag") "c"))) (list (colors-not-equal? c1 (doodad-color (world-doodad-star w))) (colors-not-equal? c2 (doodad-color (world-doodad-square w))))) (list true true))
+message:    "both doodads should have changed colors"
+Check failure
+--------------------
+--------------------
+q2 > Test #15
+Test #15
+FAILURE
+name:       check-equal?
+location:   q2-bb.rkt:305:4
+params:     '(587 3947)
+'(587 2267 3947)
+actual:     '(587 3947)
+expected:   '(587 2267 3947)
+expression: (check-equal? (core-bounce-special-log (initial-world 0) 5000 world-doodad-star) (list 587 2267 3947))
+message:    "both of the star's velocity components should change sign after 588 ticks"
+Check failure
+--------------------
+13 success(es) 2 failure(s) 0 error(s) 15 test(s) run
+extras.rkt Wed Sep 14 08:52:19 2016
+q2.rkt appears to be in a correctly named folder. Running tests...
+Running tests from q2.rkt...
+All tests passed (52 tests).
+2

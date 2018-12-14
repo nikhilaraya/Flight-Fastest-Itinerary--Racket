@@ -1,0 +1,110 @@
+Description of machine used for benchmarking
+--------------------------------------------
+
+Manufacturer, model, and year manufactured: Dell Inc. Inspiron N5050
+
+Processor: Intel(R) Core(TM) i5
+
+Clock speed: 2.50 GHz
+
+Size of main memory: 4.00 GB
+
+
+Question 1
+----------
+
+For each of the following, report the elapsed (not cpu) time,
+in seconds, on your benchmark machine.  If your interpreter
+doesn't work, or returns an incorrect result, leave those
+timings blank.
+
+    Benchmark:    java Programs fib.ps11 35 1
+    Timing:       31.2352277
+
+    Benchmark:    larceny --r7rs --program fib.ps11.scm -- 35 100
+    Timing:       0.2498816
+
+    Benchmark:    java Fib 35 100
+    Timing:       19.0831076
+
+For each of the following, write down the largest power of 10
+you can substitute for N without getting a stack overflow:
+
+    Benchmark:    java Programs sumsq.ps11 N 1
+    Largest N:    1000
+
+    Benchmark:    java Sumsq N 1
+    Largest N:    10000
+
+    Benchmark:    java -Xss100M Programs sumsq.ps11 N 1
+    Largest N:    100000
+
+    Benchmark:    java -Xss100M Sumsq N 1
+    Largest N:    1000000
+
+For each of the following, report the elapsed (not cpu) time,
+in seconds, on your benchmark machine.  If a benchmark doesn't
+work, or encounters a stack overflow, or returns a wrong answer,
+leave those timings blank.
+
+    Benchmark:    java -Xss100M Programs sumsq.ps11 10000 100000
+    Timing:       636.8765113
+
+    Benchmark:    larceny --r7rs --program sumsq.ps11.scm -- 10000 100000
+    Timing:       8.0661482
+
+    Benchmark:    java -Xss100M Sumsq 10000 100000
+    Timing:       5.8113998
+
+    Benchmark:    java Sumsq2 10000 100000
+    Timing:       4.0744124
+
+
+Question 2
+----------
+
+For each of the following, report the elapsed (not cpu) time,
+in seconds, as shown in the output on your benchmark machine.
+
+    Benchmark:    gcc gcbench.c; ./a.out
+    Timing:       7.456
+
+    Benchmark:    java GCBench
+    Timing:       0.540
+
+    Benchmark:    java -Xmx64M GCBench
+    Timing:       0.580
+
+    Benchmark:    larceny --r7rs --program gcbenchJ.scm
+    Timing:       3.0 
+
+For each of the following, report the elapsed (not cpu) time,
+in seconds, as shown in the output on your benchmark machine.
+
+    Benchmark:    gcc permNKL.c; ./a.out
+    Timing:       179.370
+
+    Benchmark:    java PermNKL
+    Timing:       60.003
+
+    Benchmark:    java -Xmx500M PermNKL
+    Timing:       124.109
+
+    Benchmark:    larceny --r7rs --program permJ.scm
+    Timing:       101
+
+    Benchmark:    larceny --stopcopy --load 4 --r7rs --program permJ.scm
+    Timing:       51
+
+To obtain a succinct description of the options used above, type
+
+    java -X
+    larceny --wizard
+
+Suppose someone asks you whether explicit deallocation, as in C,
+is faster than garbage collection.  After running the benchmarks
+above, how would you answer that question?
+
+garbage collection is faster than explicit deallocation as there is memory overhead whereas there 
+is no memory overhead in explicit deallocation.
+

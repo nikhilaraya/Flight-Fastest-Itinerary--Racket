@@ -1,0 +1,31 @@
+;; The first three lines of this file were inserted by DrRacket. They record metadata
+;; about the language level of this file in a form that our tools can easily process.
+#reader(lib "htdp-beginner-reader.ss" "lang")((modname q2) (read-case-sensitive #t) (teachpacks ((lib "image.rkt" "teachpack" "2htdp") (lib "universe.rkt" "teachpack" "2htdp"))) (htdp-settings #(#t constructor repeating-decimal #f #t none #f ((lib "image.rkt" "teachpack" "2htdp") (lib "universe.rkt" "teachpack" "2htdp")) #f)))
+;;q2.rkt : A Program to extract the last 1String from a given string
+
+;; Goal: Extracting the last 1String
+
+(require rackunit)
+(require "extras.rkt")
+
+(provide string-last)
+
+;;DATA DEFINATIONS: none
+
+;;string-last: String -> 1String
+;;GIVEN: a string,
+;;RETURNS: a 1String,last 1String extracted from the input string.
+;;EXAMPLES:
+;;(string-last "assignment") = "t"
+;;(string-last "problem set") = "t"
+;; DESIGN STRATEGY: Combine simpler functions
+
+(define (string-last str)
+  (substring str (- (string-length str) 1)))
+
+;;TESTS
+(begin-for-test
+  (check-equal? (string-last "assignment") "t"
+                " The last 1String from the input string assignment is t")
+  (check-equal? (string-last "problem set") "t"
+                " The last 1String from the input string problem set is t"))

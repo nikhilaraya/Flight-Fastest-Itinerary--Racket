@@ -1,0 +1,34 @@
+;; The first three lines of this file were inserted by DrRacket. They record metadata
+;; about the language level of this file in a form that our tools can easily process.
+#reader(lib "htdp-beginner-reader.ss" "lang")((modname q5) (read-case-sensitive #t) (teachpacks ((lib "image.rkt" "teachpack" "2htdp") (lib "universe.rkt" "teachpack" "2htdp"))) (htdp-settings #(#t constructor repeating-decimal #f #t none #f ((lib "image.rkt" "teachpack" "2htdp") (lib "universe.rkt" "teachpack" "2htdp")) #f)))
+;; q5.rkt : A program which removes the last character of a given sting
+
+;;Goal: remove the last character from a string
+
+(require rackunit)
+(require "extras.rkt")
+
+(provide string-remove-last)
+
+;; DATA DEFINATIONS: none
+
+;; string-remove-last : String-> String
+;; GIVEN: a string,
+;; RETURNS: a string,after removing the last character from the input string.
+;; EXAMPLES:
+;; (string-remove-last "assignment") = "assignmen"
+;; (string-remove-last "problemset") = "problemse"
+
+(define (string-remove-last str)
+  (if  (= (string-length str) 0) "" (substring str 0 (- (string-length str) 1))))
+
+;;TESTS
+(begin-for-test
+  (check-equal? (string-remove-last "assignment") "assignmen"
+                " The output string should be 'assignmen' with the last character 't' removed")
+  (check-equal? (string-remove-last "problem") "proble"
+                " The output string should be 'proble' with the last character 'm' removed")
+  (check-equal? (string-remove-last "") ""
+                " The output string of an empty string is an empty string")
+  (check-equal? (string-remove-last " ") ""
+                " The output of a string with length 1 is an empty string")) 

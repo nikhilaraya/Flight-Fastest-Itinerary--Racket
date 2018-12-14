@@ -1,0 +1,33 @@
+TA-1 Name:- Vinay
+TA-2 Name:- Himanshu
+
+
+
+
+Student1 CCIS ID:-nikhilaraya
+
+Question 1 :-
+
+Design Grade:-AB
+TA Comments on Design:-
+- missing few arguments in make-world
+- contract and function name does not match for list template.
+- Examples are missing for few functions
+- doodad-after-key-dot contract returns two LOD.
+- avoid using magic numbers in program
+
+Presentation Grade:-A
+TA Comments on Presentation:-
+- Good.
+
+Question 2 :-
+
+Design Grade:-AB
+TA Comments on Design:-
+- Observer Template missing for Skillet
+- example for checking-ovelapping-flapjacks is incorrect
+ 
+
+Presentation Grade:-A
+TA Comments on Presentation:-
+-Good

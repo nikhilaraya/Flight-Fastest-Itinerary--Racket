@@ -1,0 +1,85 @@
+;; The first three lines of this file were inserted by DrRacket. They record metadata
+;; about the language level of this file in a form that our tools can easily process.
+#reader(lib "htdp-intermediate-reader.ss" "lang")((modname q2) (read-case-sensitive #t) (teachpacks ((lib "image.rkt" "teachpack" "2htdp") (lib "universe.rkt" "teachpack" "2htdp"))) (htdp-settings #(#t constructor repeating-decimal #f #t none #f ((lib "image.rkt" "teachpack" "2htdp") (lib "universe.rkt" "teachpack" "2htdp")) #f)))
+
+
+
+;;; make-flapjack : Real Real PosReal -> Flapjack
+ ;;; GIVEN: x and y coordinates and a radius r
+ ;;; RETURNS: a flapjack whose center is at the given x and y
+ ;;;     coordinates, with the given radius
+          
+ ;;; flapjack-x      : Flapjack -> Real
+ ;;; flapjack-y      : Flapjack -> Real
+ ;;; flapjack-radius : Flapjack -> PosReal
+ ;;; GIVEN: a flapjack
+          ;;; RETURNS: its x or y coordinate or radius
+          
+          ;;; make-skillet : Real Real PosReal -> Skillet
+          ;;; GIVEN: x and y coordinates and a radius r
+          ;;; RETURNS: a skillet whose center is at the given x and y
+          ;;;     coordinates, with the given radius
+          
+          ;;; skillet-x      : Skillet -> Real
+          ;;; skillet-y      : Skillet -> Real
+          ;;; skillet-radius : Skillet -> PosReal
+          ;;; GIVEN: a skillet
+          ;;; RETURNS: its x or y coordinate or radius
+          
+          ;;; overlapping-flapjacks : ListOfFlapjack -> ListOfListOfFlapjack
+          ;;; GIVEN: a list of flapjacks
+          ;;; RETURNS: a list of the same length whose i-th element
+          ;;;     is a list of the flapjacks in the given list that
+          ;;;     overlap with the i-th flapjack in the given list
+          ;;; EXAMPLES:
+          ;;;   (overlapping-flapjacks empty)  =>  empty
+          ;;;   (overlapping-flapjacks
+          ;;;    (list (make-flapjack -10  2 5)
+          ;;;          (make-flapjack  -3  0 4)
+          ;;;          (make-flapjack   4 -2 4.6)
+          ;;;          (make-flapjack 7.2  6 5)
+          ;;;          (make-flapjack  20  4 4.2)))
+          ;;;   =>
+          ;;;   (list (list (make-flapjack -10  2 5)
+          ;;;               (make-flapjack  -3  0 4))
+          ;;;         (list (make-flapjack -10  2 5)
+          ;;;               (make-flapjack  -3  0 4)
+          ;;;               (make-flapjack   4 -2 4.6))
+          ;;;         (list (make-flapjack  -3  0 4)
+          ;;;               (make-flapjack   4 -2 4.6)
+          ;;;               (make-flapjack 7.2  6 5))
+          ;;;         (list (make-flapjack   4 -2 4.6)
+          ;;;               (make-flapjack 7.2  6 5))
+          ;;;         (list (make-flapjack  20  4 4.2)))
+          
+          ;;; non-overlapping-flapjacks : ListOfFlapjack -> ListOfFlapjack
+          ;;; GIVEN: a list of flapjacks
+          ;;; RETURNS: a list of the flapjacks in the given list that
+          ;;;     do not overlap with any other flapjacks in the list
+          ;;; EXAMPLES:
+          ;;;   (non-overlapping-flapjacks empty)  =>  empty
+          ;;;   (non-overlapping-flapjacks
+          ;;;    (list (make-flapjack -10  2 5)
+          ;;;          (make-flapjack  -3  0 4)
+          ;;;          (make-flapjack   4 -2 4.6)
+          ;;;          (make-flapjack 7.2  6 5)
+          ;;;          (make-flapjack  20  4 4.2)))
+          ;;;   =>
+          ;;;   (list (make-flapjack  20  4 4.2))
+          
+          ;;; flapjacks-in-skillet : ListOfFlapjack Skillet -> ListOfFlapjack
+          ;;; GIVEN: a list of flapjacks and a skillet
+          ;;; RETURNS: a list of the given flapjacks that fit entirely
+          ;;;     within the skillet
+          ;;; EXAMPLE:
+          ;;;   (flapjacks-in-skillet
+          ;;;    (list (make-flapjack -10  2 5)
+          ;;;          (make-flapjack  -3  0 4)
+          ;;;          (make-flapjack   4 -2 4.6)
+          ;;;          (make-flapjack 7.2  6 5)
+          ;;;          (make-flapjack  20  4 4.2))
+          ;;;    (make-skillet 2 3 12))
+          ;;; =>
+          ;;;   (list (make-flapjack  -3  0 4)
+          ;;;         (make-flapjack   4 -2 4.6)
+          ;;;         (make-flapjack 7.2  6 5))

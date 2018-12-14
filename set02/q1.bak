@@ -1,0 +1,80 @@
+;; The first three lines of this file were inserted by DrRacket. They record metadata
+;; about the language level of this file in a form that our tools can easily process.
+#reader(lib "htdp-beginner-reader.ss" "lang")((modname q1) (read-case-sensitive #t) (teachpacks ((lib "image.rkt" "teachpack" "2htdp") (lib "universe.rkt" "teachpack" "2htdp"))) (htdp-settings #(#t constructor repeating-decimal #f #t none #f ((lib "image.rkt" "teachpack" "2htdp") (lib "universe.rkt" "teachpack" "2htdp")) #f)))
+;; q1.rkt :  A Tiny Test Editor
+
+;; Goal: 
+
+(require rackunit)
+(require 2htdp/universe)
+(require "extras.rkt")
+
+(provide make-editor)
+(provide editor-pre)
+(provide editor-post)
+(provide editor?)
+(provide edit)
+
+;; DATA DEFINATIONS
+
+(define-struct editor (pre post))
+
+;; A Editor is a
+;;   (make-editor String String)
+;; INTERPRETATION:
+;;    pre is a string before the cursor in the editor
+;;    post is a string after the cursor in the editor
+
+;; editor-fn : Editor -> ??
+#|
+ (define (editor-fn e)
+   (...
+      (editor-pre e)
+      (editor-post e)))
+|#
+
+;; edit: Editor KeyEvent -> Editor
+;; GIVEN: A editor with the pre and post strings and the key event
+;; RETURNS: A editor, after the changes made to the pre and post strings due to the key movements
+;; EXAMPLES: 
+;; (edit (make-editor "hello" "world") "\b") = "hell" "world"
+;; (edit (make-editor "hello" "world") "left") = "hell" "world"
+;; (edit (make-editor "hello" "world") "right") = "hellow" "orld"
+
+(define (edit ed ke)
+    (cond [(key=? "\b" ke)(cursor-backspace (editor-pre ed) (editor-post ed))]
+          [(key=? "left" ke)(cursor-move-left (editor-pre ed) (editor-post ed))]
+          [(key=? "right" ke)(cursor-move-right (editor-pre ed) (editor-post ed))]
+          [else ed]))
+
+
+
+(define (cursor-backspace pre post)
+    (make-editor (if (= (string-length pre) 0) "" (substring pre 0 (- (string-length pre) 1))) post))
+
+(define (cursor-move-left pre post)
+    (make-editor (if (= (string-length pre) 0) "" (substring pre 0 (- (string-length pre) 1)))
+                 (string-append (substring pre (if (= (string-length pre) 0) 0 (- (string-length pre) 1))) post)))
+  
+(define (cursor-move-right pre post)
+    (make-editor (string-append pre (substring post 0 (if (= (string-length post) 0) 0 1)))
+                 (if (<= (string-length post) 1) "" (substring post 1))))
+
+;;(edit (make-editor "hello" "world") "\b")
+;;(edit (make-editor "" "world") "\b")
+;;(edit (make-editor "hello" "") "\b")
+;;(edit (make-editor "h" "") "\b")
+;;(edit (make-editor "" "") "\b")
+;;(edit (make-editor "hello" "world") "left")
+;;(edit (make-editor "" "world") "left")
+;;(edit (make-editor "hello" "") "left")
+;;(edit (make-editor "h" "") "left")
+;;(edit (make-editor "" "w") "left")
+;;(edit (make-editor "" "") "left")
+;;(edit (make-editor "hello" "world") "right")
+;;(edit (make-editor "" "world") "right")
+;;(edit (make-editor "hello" "") "right")
+;;(edit (make-editor "h" "") "right")
+;;(edit (make-editor "" "w") "right")
+;;(edit (make-editor "" "") "right")
+;;(edit (make-editor "h" "") "a")

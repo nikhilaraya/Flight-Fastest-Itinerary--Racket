@@ -1,0 +1,30 @@
+TA-1 Name:- Himanshu
+TA-2 Name:- Vinay
+
+
+
+Student1 CCIS ID:- nikhilaraya
+
+Question 1 :-
+
+Design Grade:- A
+TA Comments on Design:-
+- Suggestion : Indentation should be consistent throughout the program
+- Good work!
+
+Presentation Grade:- Presentation grade will be the same as next problem set
+TA Comments on Presentation:-
+
+
+Question 2 :-
+
+Design Grade:- AB
+TA Comments on Design:-
+ - 100% test coverage not achieved.
+ - Constructor template for mouse-position struct wrong. Should not be make-location
+ - world-after-key-event should be broken into helpers. Cuurently it is doing more that one task
+ - Magic constants should not be used in the program
+
+Presentation Grade:- Presentation grade will be the same as next problem set
+TA Comments on Presentation:-
+

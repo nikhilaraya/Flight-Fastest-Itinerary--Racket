@@ -1,0 +1,31 @@
+;; The first three lines of this file were inserted by DrRacket. They record metadata
+;; about the language level of this file in a form that our tools can easily process.
+#reader(lib "htdp-beginner-reader.ss" "lang")((modname q3) (read-case-sensitive #t) (teachpacks ((lib "image.rkt" "teachpack" "2htdp") (lib "universe.rkt" "teachpack" "2htdp"))) (htdp-settings #(#t constructor repeating-decimal #f #t none #f ((lib "image.rkt" "teachpack" "2htdp") (lib "universe.rkt" "teachpack" "2htdp")) #f)))
+;; q3.rkt : A program to insert a '_' at a particular position of a string
+
+;; Goal: inserting a '_' in a given string at a given position
+
+(require rackunit)
+(require "extras.rkt")
+
+(provide string-insert)
+
+;; DATA DEFINATIONS: none
+
+;; string-insert: String PosInteger -> String
+;; GIVEN: a string str and a postive integer i
+;; WHERE: i = specifies a postion where the '_' has to be inserted in a given string. i lies between 0 and length of the string inclusive.
+;; Examples:
+;; (string-insert "assignment" 5) = "assi_gnment"
+;; (string-insert "problemset" 2) = "p_roblemset"
+;; DESIGN STRATERGY : Combine simpler functions
+
+(define (string-insert str i)
+  (string-append (substring str 0 i) "_" (substring str (- i 1))))
+
+;;TESTS
+(begin-for-test
+  (check-equal? (string-insert "assignment" 5) "assi_gnment"
+                "assi_gnment should be the output string after '_' is inserted at position 5")
+  (check-equal? (string-insert "problemset" 2) "p_roblemset"
+                "p_roblemset should be the output string after '_' is inserted at position 2"))

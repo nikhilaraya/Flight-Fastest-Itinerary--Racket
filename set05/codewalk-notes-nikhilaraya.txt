@@ -1,0 +1,29 @@
+TA-1 Name:- Wenjun
+TA-2 Name:- Sankar
+
+
+
+
+Student1 CCIS ID:- nikhilaraya
+
+Question 1 :-
+
+Design Grade:- A
+TA Comments on Design:-
+> Constant names should be defined in upper case.
+> use general names for constants than calling it GREEN.
+> Could avoid lambda if  calling an another fn which takes only one argument.
+ 
+Presentation Grade:- A
+TA Comments on Presentation:-
+> was able to explain the questions asked.
+
+Question 2 :-
+
+Design Grade:- A
+TA Comments on Design:-
+> Good design
+
+Presentation Grade:- A
+TA Comments on Presentation:-
+> Good.

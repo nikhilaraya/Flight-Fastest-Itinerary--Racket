@@ -1,0 +1,88 @@
+;; The first three lines of this file were inserted by DrRacket. They record metadata
+;; about the language level of this file in a form that our tools can easily process.
+#reader(lib "htdp-beginner-reader.ss" "lang")((modname q4) (read-case-sensitive #t) (teachpacks ((lib "image.rkt" "teachpack" "2htdp") (lib "universe.rkt" "teachpack" "2htdp"))) (htdp-settings #(#t constructor repeating-decimal #f #t none #f ((lib "image.rkt" "teachpack" "2htdp") (lib "universe.rkt" "teachpack" "2htdp")) #f)))
+;; q4.rkt : A program to calculate the profit earned by the owner of a depending on the number of attendees and ticket price 
+
+;;Goal: Refactor the program 
+
+(require rackunit)
+(require "extras.rkt")
+
+(provide attendees)
+(provide revenue)
+(provide cost)
+(provide profit)
+
+(define NUM-OF-ATTENDEES 120)
+(define TICKET-PRICE-FOR-120 5.0)
+(define CHANGE-IN-PRICE 0.1)
+(define ATTENDANCE-CHANGE 15)
+(define PERFORMANCE-FIXED-COST 180)
+(define PERFORMANCE-PER-ATTENDEE-COST 0.04)
+
+;; attendees : PosReal -> NonNegInteger 
+;; GIVEN: PosReal, ticket price for the show
+;; RETURNS: NonNegInteger, the number of attendees.
+;; EXAMPLES:
+;; (attendees 5.00) = 120
+;; (attendees 4.90) = 135
+
+(define (attendees ticket-price)
+    (- NUM-OF-ATTENDEES (* (- ticket-price TICKET-PRICE-FOR-120) (/ ATTENDANCE-CHANGE CHANGE-IN-PRICE))))
+
+;; TESTS
+ (begin-for-test
+   (check-equal? (attendees 5.0) 120
+                 " The number of attendees when the ticket price is $5 should be 120" )
+   (check-equal? (attendees 4.90) 135
+                 " the number of attendees when the ticket price is $4.90 should be 135"))
+
+;; revenue : PosReal -> PosReal 
+;; GIVEN: PosReal, the ticket price for the show
+;; RETURNS: PosReal, the total revenue based on number of attendees and ticket price.
+;; EXAMPLES: 
+;; (revenue 5.00) = 600
+;; (revenue 4.90) = 661.5
+(define (revenue ticket-price)
+    (* ticket-price (attendees ticket-price)))
+
+;; TESTS
+   (begin-for-test
+     (check-equal? (revenue 5.0) 600
+                   " The revenue when the ticket price is $5 is $600")
+     (check-equal? (revenue 4.9) 661.5
+                   " The revenue when the ticket price is $4.90 is $661.5"))
+
+;; cost : PosReal -> PosReal 
+;; GIVEN: PosReal, the ticket price for the show
+;; RETURNS: PosReal,the total cost for conducting the show.
+;; EXAMPLES:
+;; (cost 5.0) = 184.8
+;; (cost 4.9) = 185.4
+(define (cost ticket-price)
+    (+ PERFORMANCE-FIXED-COST (* PERFORMANCE-PER-ATTENDEE-COST (attendees ticket-price))))
+
+;; TESTS
+    (begin-for-test
+      (check-equal? (cost 5.0) 184.8
+                    " The cost when the ticket price is $5 is $184.8")
+      (check-equal? (cost 4.9) 185.4
+                    " The cost when the ticket price is $4.9 is $185.4"))
+
+;; profit : PosReal -> Real 
+;; GIVEN: PosReal, the ticket price for the show,
+;; RETURNS: Real, the profit or loss.
+;; EXAMPLES:
+;; (profit 5.0) = 415.2
+;; (profit 4.9) = 476.1
+
+(define (profit ticket-price)
+    (- (revenue ticket-price)
+       (cost ticket-price)))
+
+;;TESTS
+(begin-for-test
+  (check-equal? (profit 5.0) 415.2
+                " The profit earned when the ticket price is $5 is $415.2")                
+  (check-equal? (profit 4.9) 476.1
+                " The profit earned when the ticket price is $5 is $476.3"))
